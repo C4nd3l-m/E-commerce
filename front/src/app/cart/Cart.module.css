@@ -1,123 +1,138 @@
-.cartContainer {
+.cart-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    justify-content: center;
     padding: 20px;
-    background-color: #121212; /* Fondo oscuro */
-    color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.emptyMessage {
-    font-size: 24px;
-    color: #4e59cd98; /* Color destacado */
-}
-
-.cartItems {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    background-color: #ffffff00;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     width: 100%;
-}
-
-.cartItem {
+    max-width: 900px;
+    margin: 20px auto;
+    overflow: hidden;
+  }
+  
+  .cart-header {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #ffffff;
+  }
+  
+  .cart-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
     padding: 15px;
-    border: 1px solid #444;
+    margin: 10px 0;
+    background-color: #f5f5f5;
     border-radius: 8px;
-    background-color: #1e1e1e;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.cartItem:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.productImage {
-    width: 80px;
-    height: 80px;
-    border-radius: 8px;
-    object-fit: cover;
-}
-
-.productInfo {
-    flex: 1;
-    margin-left: 20px;
-}
-
-.productName {
-    font-size: 18px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .cart-item-name {
+    font-size: 1.2rem;
     font-weight: bold;
-    color: #f3f3f3;
-}
-
-.productDescription {
-    font-size: 14px;
-    color: #aaa;
-}
-
-.removeButton {
-    background-color: #9371eb4e;
-    color: #fff;
-    padding: 10px 15px;
+    color: #333;
+    flex: 1;
+  }
+  
+  .cart-item img {
+    max-width: 50px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 15px;
+  }
+  
+  .cart-item-button {
+    background-color: #572f8566;
+    color: white;
+    padding: 8px 12px;
+    font-size: 1rem;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.removeButton:hover {
-    background-color: #c5b1f68f;
-}
-
-.clearButton {
-    align-self: flex-end;
-    background-color: #333;
-    color: #fff;
-    padding: 10px 20px;
-    border: 1px solid #555;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.clearButton:hover {
-    background-color: #444;
-}
-
-.actions {
+    transition: background-color 0.3s ease;
+  }
+  
+  .cart-item-button:hover {
+    background-color: #432290;
+  }
+  
+  .cart-actions {
     display: flex;
-    gap: 15px;
+    justify-content: space-between;
+    width: 100%;
     margin-top: 20px;
-}
-
-.continueButton,
-.checkoutButton {
-    background-color: #6a5acd; /* Botón principal */
-    color: #fff;
+  }
+  
+  .cart-actions button {
+    background-color: #612bb8bb;
+    color: rgb(255, 255, 255);
     padding: 10px 20px;
+    font-size: 1rem;
     border: none;
-    border-radius: 5px;
-    font-size: 16px;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: background-color 0.3s ease;
+  }
+  
+  .cart-actions button:hover {
+    background-color: #b474db;
+  }
+  
+  .clear-button {
+    background-color: #ffffff;
+  }
+  
+  .clear-button:hover {
+    background-color: #8e7f7f;
+  }
+
+
+.clear-button {
+    background-color: transparent;
+    border: none;
+    color: #34246d;
+    font-size: 1.5rem; 
+    cursor: pointer;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
 }
 
-.continueButton:hover,
-.checkoutButton:hover {
-    background-color: #5848c2;
+.clear-button:hover {
+    color: #3a2e5e59;
+}
+
+
+.checkout-button {
+    margin-top: 16px; 
+    padding: 10px 20px; 
+    background-color: #3498db; 
+    color: white; 
+    font-weight: 600; 
+    border-radius: 8px; 
+    border: none; 
+    cursor: pointer; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    transition: background-color 0.3s ease, transform 0.2s; 
+    width: 150px; 
+    display: block; 
+    margin-left: auto; 
+    margin-right: auto;
+  }
+  
+  .checkout-button:hover {
+    background-color: #2980b9; 
     transform: scale(1.05);
-}
-
-.checkoutButton {
-    background-color: #a868f6; /* Verde para completar compra */
-}
-
-.checkoutButton:hover {
-    background-color: #6221b2;
-}
+  }
+  
+  .checkout-button:focus {
+    outline: none; 
+    box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.5);
+  }
+  

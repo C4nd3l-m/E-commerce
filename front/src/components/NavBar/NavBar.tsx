@@ -43,6 +43,13 @@ const NavBar = () => {
                         >
                             My Cart
                         </Link>
+
+                        <Link
+                            href="/orders"
+                            className="text-sm font-medium hover:text-gray-400"
+                        >
+                            My Orders
+                        </Link>
                         <button
                             type="button"
                             onClick={handleLogout}

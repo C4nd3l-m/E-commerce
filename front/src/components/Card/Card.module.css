@@ -6,7 +6,7 @@
     background-color: #f9f9f900;
     border-radius: 15px;
     margin: 20px auto;
-    max-width: 1200px; /* Para centrar y limitar el ancho */
+    max-width: 1200px; 
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
@@ -14,54 +14,44 @@
     grid-column: 1 / -1; 
     text-align: center;
     font-family: 'Roboto', 'Sans-serif';
-    color: #6a0dad; /* Cambié el color a un púrpura elegante */
+    color: #6a0dad; 
     font-size: 2.2rem;
     margin-bottom: 20px;
 }
 
 .card-item {
-    background: #ffffff;
+    background: #ffffff00;
     border-radius: 12px;
     padding: 20px;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-    border: 1px solid #eaeaea;
+    border: 1px solid #eaeaea09;
 }
 
-.card-item:hover {
-    transform: translateY(-8px); /* Efecto flotante */
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-}
+
 
 .card-item h3 {
     font-size: 1.6rem;
     margin-bottom: 12px;
-    color: #333333;
+    color: #d8d8d8;
     font-weight: 600;
 }
 
 .card-item p {
     font-size: 1rem;
-    color: #666666;
+    color: #d8d8d8;
     margin-bottom: 15px;
 }
 
 .card-item img {
-    width: 100%;
-    height: 180px; /* Tamaño predeterminado */
+    margin-left: 30%;
+    width: 50%;
+    height: 180px; 
     border-radius: 10px;
-    object-fit: cover; /* Cubre el espacio disponible */
+    object-fit: cover;
     margin-bottom: 15px;
-    transition: transform 0.4s ease, object-fit 0.4s ease;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
-}
-
-.card-item img:hover {
-    object-fit: contain; /* Cambia a mostrar la imagen completa */
-    transform: scale(1.05); /* Efecto de zoom ligero */
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
-    background-color: #ffffff32; /* Fondo blanco para contraste si es necesario */
 }
 
 
@@ -87,7 +77,6 @@
     box-shadow: none;
 }
 
-/* Responsive Design para Pantallas Pequeñas */
 @media (max-width: 768px) {
     .cards-container {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));

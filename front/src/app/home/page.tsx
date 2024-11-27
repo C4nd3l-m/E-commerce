@@ -2,8 +2,10 @@ import Card from "@/components/Card/Card";
 
 const Home: React.FC = () => {
     return (
-        <div>
-            <h1>Home page</h1>
+        <div className="flex flex-col items-center justify-center min-h-screen">
+            <h1 className="text-5xl font-semibold text-center text-white mb-8">
+                Hello, Apple intelligence.
+            </h1>
             <div>
                 <Card />
             </div>
@@ -11,4 +13,4 @@ const Home: React.FC = () => {
     );
 }
 
-export default Home; 
+export default Home;

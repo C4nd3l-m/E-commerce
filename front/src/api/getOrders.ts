@@ -15,7 +15,6 @@ export const fetchUserOrders = async (token: string): Promise<IOrder[]> => {
         });
 
         const orders = await response.json();
-        console.log(orders)
         return orders;
 
     } catch (error) {

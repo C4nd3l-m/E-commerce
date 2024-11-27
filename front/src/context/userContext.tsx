@@ -88,13 +88,9 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     const confirmUserOrder = async (order: number[], token: string) => {
-        console.log("User:", user);
-        console.log("Cart:", cart);
-        console.log("Token:", token);
         
             try {
                 const result = await confirmOrder(order, token); 
-                alert("Order confirmed successfully!");
                 clearCart();
                 return result;
             } catch (error) {

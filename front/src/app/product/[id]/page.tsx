@@ -1,4 +1,3 @@
-import styles from "@/app/product/[id]/Detail.module.css";
 import { getProductById } from "../../../api/getProducts";
 import CardHome from "@/components/Card/CardHome";
 import AddToCart from "@/components/AddToCart";
@@ -8,16 +7,13 @@ const Detail = async ({ params }: { params: { id: string } }) => {
         const product = await getProductById(params.id);
 
         return (
-            <div className={styles["detail-container"]}>
-                <div className={styles["detail-header"]}>
-                    <h1>Product details</h1>
-                </div>
+            <div >
 
-                <div className={styles["card-container"]}>
+                <div>
                     <CardHome
                         key={product.id}
                         id={product.id}
-                        name={product.name} 
+                        name={product.name}
                         image={product.image}
                         isOnSale={product.isOnSale}
                         price={product.price}
@@ -27,17 +23,20 @@ const Detail = async ({ params }: { params: { id: string } }) => {
                     />
                 </div>
 
-                <div className={styles["add-to-cart"]}>
+                <div className="flex justify-center mt-4">
                     <AddToCart product={product} />
                 </div>
+
             </div>
         );
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
         return (
-            <div className={styles["detail-container"]}>
-                <p>Error al cargar el producto</p>
+            <div >
+                <p>Error</p>
             </div>
         );
+
     }
 };
 

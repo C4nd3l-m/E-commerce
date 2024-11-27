@@ -7,6 +7,7 @@ export interface IProducts{
     image: string;
     categoryId: number;
     isOnSale?: boolean;
+
 }
 
 export interface IProductDetailParam{

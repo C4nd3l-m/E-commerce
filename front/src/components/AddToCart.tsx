@@ -1,3 +1,5 @@
+// AddToCart.tsx
+
 "use client"
 
 import { useContext } from "react";
@@ -5,6 +7,7 @@ import { UserContext } from "@/context/userContext";
 import { IProducts } from "@/Interfaces/IProducts";
 import { useRouter } from "next/navigation";
 import { FaShoppingCart } from "react-icons/fa";
+import toast from 'react-hot-toast'; 
 
 interface AddToCartProps {
     product: IProducts; 
@@ -16,29 +19,24 @@ const AddToCart: React.FC<AddToCartProps> = ({ product }) => {
 
     const handleRedirectToLogin = () => {
         router.push("/login");
+        toast.error("You need to log in to add items to your cart."); 
     };
 
-    /*const handleAdd = () =>{
-        if(user){
-            const cart = JSON.parse(localStorage.getItem("cart" || "[]"))
-            cart.push(product)
-            localStorage.setItem("cart", JSON.stringify(cart))
-        }else{
-            router.push("/login")
-        }
-    }*/
-
+    const handleAddToCart = () => {
+        addToCart(product);
+        toast.success(`${product.name} has been added to your cart!`); 
+    };
 
     return (
         <div>
             {user?.token ? (
                 <button 
                     type="button" 
-                    onClick={() => addToCart(product)} 
+                    onClick={handleAddToCart} 
                     name="addToCart"
                     aria-label="Add to cart"
                 >
-                    <FaShoppingCart size={24} color="black" /> 
+                    <FaShoppingCart size={24} color="white" /> 
                 </button>
             ) : (
                 <button 
