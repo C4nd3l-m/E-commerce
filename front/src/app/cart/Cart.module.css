@@ -1,0 +1,123 @@
+.cartContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background-color: #121212; /* Fondo oscuro */
+    color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.emptyMessage {
+    font-size: 24px;
+    color: #4e59cd98; /* Color destacado */
+}
+
+.cartItems {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.cartItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border: 1px solid #444;
+    border-radius: 8px;
+    background-color: #1e1e1e;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.cartItem:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.productImage {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.productInfo {
+    flex: 1;
+    margin-left: 20px;
+}
+
+.productName {
+    font-size: 18px;
+    font-weight: bold;
+    color: #f3f3f3;
+}
+
+.productDescription {
+    font-size: 14px;
+    color: #aaa;
+}
+
+.removeButton {
+    background-color: #9371eb4e;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.removeButton:hover {
+    background-color: #c5b1f68f;
+}
+
+.clearButton {
+    align-self: flex-end;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.clearButton:hover {
+    background-color: #444;
+}
+
+.actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.continueButton,
+.checkoutButton {
+    background-color: #6a5acd; /* Botón principal */
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.continueButton:hover,
+.checkoutButton:hover {
+    background-color: #5848c2;
+    transform: scale(1.05);
+}
+
+.checkoutButton {
+    background-color: #a868f6; /* Verde para completar compra */
+}
+
+.checkoutButton:hover {
+    background-color: #6221b2;
+}

@@ -1,6 +1,13 @@
 export interface IUserLogin {
     email: string;
     password: string;
+    token: string
+}
+
+export interface IUser{
+    id: string;
+    name: string;
+    token: string
 }
 
 export interface IUserRegister {
@@ -26,4 +33,13 @@ export interface IUserSession {
             password: string;
         }
     }
+}
+
+
+export interface IUserSession2 {
+    user: {
+        id: string;
+        name: string;
+    };
+    token: string;
 }

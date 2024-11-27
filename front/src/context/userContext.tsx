@@ -1,157 +1,124 @@
 "use client"
+import React, { createContext, useState, useMemo, useEffect } from "react";
 import Cookies from "js-cookie";
-import { createContext, useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { apiRegisterUser, apiLoginUser } from "@/api/authUser";
-import { getProductById, getProducts, fetchUserOrders, fetchOrderDetails } from "@/api/getProducts";
-import { IUserLogin, IUserRegister } from "@/Interfaces/IUser";
+import { apiLoginUser, apiRegisterUser } from "@/api/authUser";
+import { getProducts } from "@/api/getProducts";
+import { confirmOrder } from "@/api/getOrders";
 import { IProducts } from "@/Interfaces/IProducts";
-import { IOrder } from "@/Interfaces/IOrder";
-
-
-interface IUserContext {
-    user: { id: string; name: string } | null;
-    loginUser: (userData: IUserLogin) => Promise<{ user: { id: string; name: string }; token: string } | null>;
-    registerUser: (userData: IUserRegister) => Promise<void>;
-    logOutUser: () => void;
-    products: IProducts[];
-    fetchProducts: () => Promise<void>;
-    fetchProductById: (id: string) => Promise<IProducts | undefined>;
-    cart: IProducts[];
-    addToCart: (product: IProducts) => void;
-    removeFromCart: (productId: string) => void;
-    clearCart: () => void;
-    fetchCartProducts: () => Promise<void>;
-}
-
-
+import { IUserContext } from "@/Interfaces/IUserContext";
+import { IUserLogin, IUserRegister, IUserSession2 } from "@/Interfaces/IUser";
 
 export const UserContext = createContext<IUserContext>({
     user: null,
-    loginUser: async () => { },
+    cart: [],
+    loginUser: async (): Promise<IUserSession2 | null> => { return null; },
     registerUser: async () => { },
     logOutUser: () => { },
-    products: [],
     fetchProducts: async () => { },
-    fetchProductById: async () => undefined,
-    cart: [],
     addToCart: () => { },
     removeFromCart: () => { },
     clearCart: () => { },
-    fetchCartProducts: async () => { }
+    confirmUserOrder: async () => {}
 });
 
-
-
-const getUserFromCookies = () => {
-    const userData = Cookies.get("userData");
-    return userData ? JSON.parse(userData) : null;
-};
-
-
-export const UserProvider = ({ children }: { children: React.ReactNode }) => {
-    const [user, setUser] = useState<{ id: string, name: string } | null>(getUserFromCookies());
+export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const [user, setUser] = useState<{ id: string; name: string; token: string } | null>(null);
+    const [token, setToken] = useState<string | null>(Cookies.get("token") || null);
     const [products, setProducts] = useState<IProducts[]>([]);
     const [cart, setCart] = useState<IProducts[]>([]);
     const router = useRouter();
 
-    useEffect(() => {
-        const storedUser = getUserFromCookies();
-        if (storedUser) {
-            setUser(storedUser.user);
-        }
-    }, []);
 
-    const loginUser = async (userData: IUserLogin): Promise<{ user: { id: string, name: string }; token: string } | null> => {
+    useEffect(() =>{
+        const dataCookie = Cookies.get("userData")
+        if(dataCookie){
+            const parsedData = JSON.parse(dataCookie)
+            setUser(parsedData)
+        }else{
+            setUser(null)
+        }
+    }, [])
+
+
+
+    const loginUser = async (userData: IUserLogin): Promise<IUserSession2 | null> => {
         const response = await apiLoginUser(userData);
-        if (response?.token && response?.user) {
-            setUser(response.user);
+        if (response) {
+            const { user, token } = response;
+            setUser({ ...user, token });  
+            setToken(token);  
+            Cookies.set("userData", JSON.stringify({ ...user, token }));
+            Cookies.set("token", token);
             return { user: response.user, token: response.token };
         }
         return null;
     };
 
 
-    const registerUser = async (userData: IUserRegister): Promise<void> => {
-        try {
-            await apiRegisterUser(userData);
-            alert("User created successfully");
-            router.push("/login");
-        } catch (error) {
-            console.error("Register error", error);
-            alert("An error occurred while registering");
-        }
+    const registerUser = async (userData: IUserRegister) => {
+        await apiRegisterUser(userData);
+        router.push("/login");
     };
-
 
     const logOutUser = () => {
         Cookies.remove("userData");
+        Cookies.remove("token");
         setUser(null);
+        setToken(null);
+        setCart([]);
         router.push("/");
     };
 
     const fetchProducts = async () => {
-        try {
-            const products = await getProducts();
-            setProducts(products);
-        } catch (error) {
-            console.error("Error fetching products", error);
-        }
+        const data = await getProducts();
+        setProducts(data);
     };
-
-    const fetchProductById = async (id: string): Promise<IProducts | undefined> => {
-        try {
-            return await getProductById(id);
-        } catch (error) {
-            console.error("Error fetching product by ID", error);
-        }
-    };
-
-    const fetchCartProducts = async () => {
-        if (user) {
-            const orders = await fetchUserOrders(Number(user.id));
-            const pendingOrder = orders.find((order: IOrder) => order.status === "pending");
-            if (pendingOrder) {
-                const products = await fetchOrderDetails(pendingOrder.id);
-                setCart(products);
-            }
-        }
-    };
-
 
     const addToCart = (product: IProducts) => {
         setCart((prevCart) => [...prevCart, product]);
     };
 
     const removeFromCart = (productId: string) => {
-        setCart((prevCart) =>
-            prevCart.filter((product) => Number(product.id) !== Number(productId)));
+        setCart((prevCart) => prevCart.filter((product) => product.id.toString() !== productId));
     };
 
     const clearCart = () => {
         setCart([]);
     };
 
-    const value = useMemo(
-        () => ({
-            user,
-            loginUser,
-            registerUser,
-            logOutUser,
-            products,
-            fetchProducts,
-            fetchProductById,
-            cart,
-            addToCart,
-            removeFromCart,
-            clearCart,
-            fetchCartProducts
-        }),
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [user, products, cart]
-    );
+    const confirmUserOrder = async (order: number[], token: string) => {
+        console.log("User:", user);
+        console.log("Cart:", cart);
+        console.log("Token:", token);
+        
+            try {
+                const result = await confirmOrder(order, token); 
+                alert("Order confirmed successfully!");
+                clearCart();
+                return result;
+            } catch (error) {
+                console.error("Error confirming the order:", error);
+                throw error;
+            }
+        
+    };
+    
 
-    return (
-        <UserContext.Provider value={value}>{children}</UserContext.Provider>
-    );
+    const value = useMemo(() => ({
+        user,
+        products,
+        cart,
+        loginUser,
+        registerUser,
+        logOutUser,
+        fetchProducts,
+        addToCart,
+        removeFromCart,
+        clearCart,
+        confirmUserOrder,
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }), [user, products, cart, token]);
+
+    return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };

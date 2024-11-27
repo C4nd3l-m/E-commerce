@@ -1,6 +1,7 @@
 import Link from "next/link";
 import CardLanding from "@/components/CardLanding/CardLanding";
-
+import logo from "@/components/NavBar/NextByte.png"
+import Image from "next/image";
 const Landing: React.FC = () => {
 
     const products = [
@@ -40,11 +41,53 @@ const Landing: React.FC = () => {
         <>
             
             <div className="w-full flex flex-col items-center space-y-4 p-4">
+            <Image
+                    title="logo"
+                    src={logo}
+                    alt="NextByte Logo"
+                    className="mr-4 rounded-md"
+                    width={100} // Ancho del logo
+                    height={100} // Alto del logo
+                />
                 <h2 className="text-lg text-white-700 mt-2">Welcome to NextByte</h2>
                 <p className="text-center text-gray-400">
                     Discover our latest products and experiences through interactive content.
                 </p>
-                <CardLanding
+                
+            </div>
+
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-8">
+            <h2 className="text-lg text-white-700 mt-2">Product Showcase</h2>
+                    <p className="text-center text-gray-400">
+                        Get a closer look at our innovative products in this showcase.
+                    </p>
+
+                
+                {products.map((product) => (
+                    <div key={product.id} className="flex flex-col items-center space-y-4">
+                        <Link href="/home">
+                            <CardLanding
+                                imageSrc={product.image}
+                                altText={product.name}
+                                imageWidth="w-full"
+                                imageHeight="h-auto"
+                                customClass="rounded-xl shadow-md"
+                            />
+                        </Link>
+                        <h2 className="text-lg text-white-700 mt-2">{product.name}</h2>
+                        <p className="text-center text-gray-400">
+                            Discover the {product.name} and explore its advanced features.
+                        </p>
+                    </div>
+                ))}
+
+
+
+                
+<div className="flex flex-col items-center space-y-4">
+
+<CardLanding
                     isVideo
                     videoSrc="videos/large_2x (1).mp4"
                     imageWidth="w-full"
@@ -53,12 +96,6 @@ const Landing: React.FC = () => {
                     altText="Header Video"
                     customClass="rounded-xl shadow-xl"
                 />
-            </div>
-
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-8">
-                
-                <div className="flex flex-col items-center space-y-4">
                     <CardLanding
                         imageSrc="https://www.apple.com/v/iphone-16/c/images/overview/media-card/highlights_apple_intelligence_endframe__cb03eqws1r7m_large_2x.jpg"
                         altText="iPhone"
@@ -97,33 +134,10 @@ const Landing: React.FC = () => {
                         altText="Product Showcase Video"
                         customClass="rounded-xl shadow-xl"
                     />
-                    <h2 className="text-lg text-white-700 mt-2">Product Showcase</h2>
-                    <p className="text-center text-gray-400">
-                        Get a closer look at our innovative products in this showcase.
-                    </p>
                 </div>
-
-                
-                {products.map((product) => (
-                    <div key={product.id} className="flex flex-col items-center space-y-4">
-                        <Link href="/home">
-                            <CardLanding
-                                imageSrc={product.image}
-                                altText={product.name}
-                                imageWidth="w-full"
-                                imageHeight="h-auto"
-                                customClass="rounded-xl shadow-md"
-                            />
-                        </Link>
-                        <h2 className="text-lg text-white-700 mt-2">{product.name}</h2>
-                        <p className="text-center text-gray-400">
-                            Discover the {product.name} and explore its advanced features.
-                        </p>
-                    </div>
-                ))}
             </div>
         </>
     );
 };
 
-export default Landing;
+export default Landing

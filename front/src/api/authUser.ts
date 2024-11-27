@@ -26,6 +26,7 @@ export const apiLoginUser = async (userData: IUserLogin): Promise<{ user: { id: 
             },
             body: JSON.stringify(userData),
         });
+        console.log("Login Response:", response)
 
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -38,3 +39,4 @@ export const apiLoginUser = async (userData: IUserLogin): Promise<{ user: { id: 
         return null;
     }
 };
+

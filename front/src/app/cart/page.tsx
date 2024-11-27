@@ -1,47 +1,43 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
-
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { UserContext } from "@/context/userContext";
 import Link from "next/link";
+import { IProducts } from "@/Interfaces/IProducts";
+import { useRouter } from "next/navigation";
+
+
 
 const Cart: React.FC = () => {
-    const { cart, removeFromCart, clearCart } = useContext(UserContext);
+    const router = useRouter();
+    const { cart, removeFromCart, clearCart, confirmUserOrder, user } = useContext(UserContext);
 
-    const handleCheckout = () => {
-        clearCart(); 
-        alert("Purchase successful! Your cart is now empty.");
+    const handleCheckout = async () => {
+
+        if (!user?.token) {
+            return
+        }
+        const productIds: number[] = cart.map((product) => product.id);
+        const response = await confirmUserOrder(productIds, user.token);
+        router.push("/orders")
+        console.log("Order confirmation response:", response);
     };
+
+    if (!cart.length) return <h1>Your cart is empty</h1>;
 
     return (
         <div>
-            {!cart.length ? (
-                <h1>Your cart is empty</h1>
-            ) : (
-                <div>
-                    {cart.map((product) => (
-                        <div key={product.id}>
-                            <img src={product.image} alt={product.name} />
-                            <h3>{product.name}</h3>
-                            <p>{product.description}</p>
-                            <button type="button" onClick={() => removeFromCart(product.id.toString())}>
-                                Remove
-                            </button>
-                        </div>
-                    ))}
-                    <button type="button" onClick={clearCart}>Clear Cart</button>
+            <h2>Your Cart</h2>
+            {cart.map((product: IProducts) => (
+                <div key={product.id}>
+                    <p>{product.name}</p>
+                    <button onClick={() => removeFromCart(product.id.toString())}>Remove</button>
                 </div>
-            )}
-            <Link href={"/home"}>
-                <button type="button" title="Continue Shopping">
-                    Continue shopping 🛍️
-                </button>
+            ))}
+            <button onClick={clearCart}>Clear Cart</button>
+            <button onClick={handleCheckout}>Checkout</button>
+            <Link href="/home">
+                <button>Continue Shopping</button>
             </Link>
-            {!!cart.length && (
-                <button type="button" onClick={handleCheckout}>
-                    Complete Purchase
-                </button>
-            )}
         </div>
     );
 };
