@@ -5,13 +5,15 @@ import Link from "next/link";
 import { IProducts } from "@/Interfaces/IProducts";
 import { useRouter } from "next/navigation";
 import { FaTrash } from "react-icons/fa";
-import styles from "@/app/cart/Cart.module.css"; 
+import styles from "@/app/cart/Cart.module.css";
 import toast, { Toaster } from 'react-hot-toast';
 
 const Cart: React.FC = () => {
-
     const router = useRouter();
     const { cart, removeFromCart, clearCart, confirmUserOrder, user } = useContext(UserContext);
+
+    // Calcula el total del precio
+    const totalPrice = cart.reduce((sum, product) => sum + product.price, 0);
 
     const handleCheckout = async () => {
         if (!user?.token) {
@@ -21,8 +23,8 @@ const Cart: React.FC = () => {
         const productIds: number[] = cart.map((product) => product.id);
         await confirmUserOrder(productIds, user.token);
 
-            toast.success("Your order has been placed successfully!");
-            router.push("/orders");
+        toast.success("Your order has been placed successfully!");
+        router.push("/orders");
     };
 
     const handleRemoveFromCart = (productId: string) => {
@@ -35,18 +37,19 @@ const Cart: React.FC = () => {
         toast.success("Cart has been cleared!");
     };
 
-    if (!cart.length) return (
-        <div className="flex flex-col items-center justify-center min-h-screen">
-            <h1 className="text-3xl font-semibold text-center text-gray-800 mt-10">
-                Your cart is empty
-            </h1>
-            <Link href="/home">
-                <button className="mt-6 py-2 px-6 text-white font-semibold bg-[#4c1d95] rounded-lg shadow-md hover:bg-[#5b21b6] focus:outline-none focus:ring-2 focus:ring-[#ddd6fe] transition-colors w-full sm:w-auto mx-auto" >
-                    Continue Shopping
-                </button>
-            </Link>
-        </div>
-    );
+    if (!cart.length)
+        return (
+            <div className="flex flex-col items-center justify-center min-h-screen">
+                <h1 className="text-3xl font-semibold text-center text-gray-800 mt-10">
+                    Your cart is empty
+                </h1>
+                <Link href="/home">
+                    <button className="mt-6 py-2 px-6 text-white font-semibold bg-[#4c1d95] rounded-lg shadow-md hover:bg-[#5b21b6] focus:outline-none focus:ring-2 focus:ring-[#ddd6fe] transition-colors w-full sm:w-auto mx-auto">
+                        Continue Shopping
+                    </button>
+                </Link>
+            </div>
+        );
 
     return (
         <div className={styles["cart-container"]}>
@@ -63,10 +66,18 @@ const Cart: React.FC = () => {
                     </button>
                 </div>
             ))}
+
+            {/* Mostrar el precio total */}
+            <div className={styles["cart-total"]}>
+                <p className="text-lg font-semibold">
+                    Total Price: <span className="text-green-600">${totalPrice.toFixed(2)}</span>
+                </p>
+            </div>
+
             <div className={styles["cart-actions"]}>
                 <div>
                     <button className={styles["clear-button"]} onClick={handleClearCart}>
-                        <FaTrash /> 
+                        <FaTrash />
                     </button>
                 </div>
                 <button
