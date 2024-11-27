@@ -38,7 +38,7 @@ const productsToPreLoad: IProduct[] = [
     description:
       "Unleash your creativity and productivity with the iPad Pro: powerful performance, stunning Liquid Retina display, and all-day battery life make the iPad Pro the perfect tool for work and play. Transform your ideas into reality with the iPad Pro.",
     image:
-      "https://www.apple.com/v/ipad-pro/ar/images/overview/highlights/chip__fj2i2rsn8jee_small_2x.jpg",
+      "https://www.apple.com/v/ipad-pro/ar/images/overview/contrast/product-tile/ipad_pro__ea93uc0cnvsm_medium_2x.jpg",
     categoryId: 3,
     stock: 10,
   },
@@ -58,7 +58,7 @@ const productsToPreLoad: IProduct[] = [
     description:
       "Immerse yourself in sound with the AirPods Pro: active noise cancellation, transparency mode, and customizable fit make the AirPods Pro the perfect companion for music, calls, and everything in between. Elevate your audio experience with the AirPods Pro.",
     image:
-      "https://www.apple.com/v/airpods-pro/m/images/overview/case_front__r6ng7f1x18a6_large_2x.png",
+      "https://www.apple.com/v/airpods-4/b/images/overview/bento-gallery/bento_case_open__63kccmu775u6_medium_2x.jpg",
     categoryId: 5,
     stock: 10,
   },
