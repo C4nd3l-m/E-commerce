@@ -1,4 +1,3 @@
-// Card.tsx
 
 import Link from "next/link";
 import { getProducts } from "../../api/getProducts";

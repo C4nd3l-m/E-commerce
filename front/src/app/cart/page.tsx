@@ -12,7 +12,6 @@ const Cart: React.FC = () => {
     const router = useRouter();
     const { cart, removeFromCart, clearCart, confirmUserOrder, user } = useContext(UserContext);
 
-    // Calcula el total del precio
     const totalPrice = cart.reduce((sum, product) => sum + product.price, 0);
 
     const handleCheckout = async () => {
@@ -67,7 +66,6 @@ const Cart: React.FC = () => {
                 </div>
             ))}
 
-            {/* Mostrar el precio total */}
             <div className={styles["cart-total"]}>
                 <p className="text-lg font-semibold">
                     Total Price: <span className="text-green-600">${totalPrice.toFixed(2)}</span>

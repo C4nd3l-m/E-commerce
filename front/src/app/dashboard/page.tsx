@@ -16,6 +16,14 @@ const Dashboard: React.FC = () => {
         }
     }, []);
 
+    if (!data) {
+        return (
+            <div className="min-h-screen bg-[#121212] text-white flex flex-col items-center py-10">
+                <h1 className="text-4xl font-semibold mb-8">Loading...</h1>
+            </div>
+        );
+    }
+
     return (
         <div className="min-h-screen bg-[#121212] text-white flex flex-col items-center py-10">
             <h1 className="text-4xl font-semibold mb-8">My Account</h1>
@@ -23,22 +31,22 @@ const Dashboard: React.FC = () => {
             <div className="max-w-4xl w-full bg-[#1f1f1f] p-8 rounded-lg shadow-xl">
                 <div className="mb-4">
                     <p className="text-xl font-medium">
-                        <strong>Name:</strong> {data?.user.name}
+                        <strong>Name:</strong> {data.user.name}
                     </p>
                 </div>
                 <div className="mb-4">
                     <p className="text-xl font-medium">
-                        <strong>Email:</strong> {data?.user.email}
+                        <strong>Email:</strong> {data.user.email}
                     </p>
                 </div>
                 <div className="mb-4">
                     <p className="text-xl font-medium">
-                        <strong>Address:</strong> {data?.user.address}
+                        <strong>Address:</strong> {data.user.address}
                     </p>
                 </div>
                 <div className="mb-4">
                     <p className="text-xl font-medium">
-                        <strong>Phone:</strong> {data?.user.phone}
+                        <strong>Phone:</strong> {data.user.phone}
                     </p>
                 </div>
             </div>

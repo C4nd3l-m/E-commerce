@@ -1,41 +1,22 @@
-import { IUserLogin, IUserRegister} from "@/Interfaces/IUser";
+import { IUserLogin, IUserRegister } from "@/Interfaces/IUser";
 
-const APIURL = process.env.NEXT_PUBLIC_API_URL;
-
-export const apiRegisterUser = async (userData: IUserRegister) => {
-    try {
-        const response = await fetch(`${APIURL}/users/register`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(userData),
-        });
-
-        return response;
-    } catch (error) {
-        console.error("Error during registration:", error);
-        return { success: false, message: "Error during registration" };
-    }
-}
-
-export const apiLoginUser = async (userData: IUserLogin): Promise<{ user: { id: string, name: string }; token: string } | null> => {
-    try {
-        const response = await fetch(`${APIURL}/users/login`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(userData),
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        return await response.json();
-
-    } catch (error) {
-        console.error("Error during login:", error);
-        return null;
-    }
+export const apiRegisterUser = async (userData: IUserRegister): Promise<void> => {
+    console.log("Mock user registered:", userData);
 };
 
+export const apiLoginUser = async (
+    userData: IUserLogin
+): Promise<{ user: { id: string; name: string; email: string; address: string; phone: string }; token: string } | null> => {
+    console.log("Mock login for user:", userData);
+
+    return {
+        user: {
+            id: "1",
+            name: "Mock User",
+            email: "mockuser@example.com",
+            address: "123 Mock St, Mock City, MC 12345", 
+            phone: "+1234567890",
+        },
+        token: "mockToken123",
+    };
+};

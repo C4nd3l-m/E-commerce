@@ -1,9 +1,8 @@
-"use client";
-
+"use client"
 import { IUserLogin } from "@/Interfaces/IUser";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { UserContext } from "@/context/userContext";
-import { useRouter } from "next/navigation"; 
+import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast"; 
 
@@ -11,14 +10,19 @@ const LoginForm = () => {
     const initialState = {
         email: "",
         password: "",
-        token: "",
     };
 
     const [userData, setUserData] = useState<IUserLogin>(initialState);
     const { loginUser } = useContext(UserContext);
     const router = useRouter();
-
     const [error, setError] = useState<string>("");
+
+    useEffect(() => {
+        const userCookies = Cookies.get("userData");
+        if (userCookies) {
+            router.push("/dashboard"); 
+        }
+    }, [router]);
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -55,7 +59,7 @@ const LoginForm = () => {
         if (response) {
             const { token, user } = response;
 
-            Cookies.set("userData", JSON.stringify({ token, user }), { expires: 1 });
+            Cookies.set("userData", JSON.stringify({ token, user }), { expires: 7 });
 
             toast.success("Login successful!"); 
             router.push("/dashboard");

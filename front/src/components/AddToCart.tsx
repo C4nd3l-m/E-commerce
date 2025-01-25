@@ -1,5 +1,3 @@
-// AddToCart.tsx
-
 "use client"
 
 import { useContext } from "react";
