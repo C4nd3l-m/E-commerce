@@ -5,7 +5,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { IOrder } from "@/Interfaces/IOrder";
 import { UserContext } from "@/context/userContext";
 import { fetchUserOrders } from "@/api/getOrders";
-import styles from "./Orders.module.css"; 
+import styles from "@/app/orders/orders.module.css"; 
 
 const Orders: React.FC = () => {
     const [orders, setOrders] = useState<IOrder[]>([]);
