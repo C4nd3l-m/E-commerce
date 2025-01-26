@@ -1,5 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 
+import Image from "next/image";
 import React, { useEffect, useRef } from "react";
 
 interface CardLandingProps {
@@ -36,7 +38,7 @@ const CardLanding: React.FC<CardLandingProps> = ({
                     }
                 });
             },
-            { threshold: 0.5 } // Adjust threshold for triggering play/pause
+            { threshold: 0.5 } 
         );
 
         if (videoRef.current) {
@@ -63,11 +65,14 @@ const CardLanding: React.FC<CardLandingProps> = ({
                     className={`${imageWidth} ${imageHeight}`}
                 />
             ) : (
-                <img
-                    src={imageSrc}
+                <Image
+                    src={imageSrc ?? '/default-image.jpg'}
                     alt={altText}
+                    width={500}  
+                    height={300}
                     className={`${imageWidth} ${imageHeight}`}
                 />
+
             )}
         </div>
     );

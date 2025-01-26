@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { FaTrash } from "react-icons/fa";
 import styles from "@/app/cart/Cart.module.css";
 import toast, { Toaster } from 'react-hot-toast';
+import Image from "next/image";
 
 const Cart: React.FC = () => {
     const router = useRouter();
@@ -17,13 +18,14 @@ const Cart: React.FC = () => {
     const handleCheckout = async () => {
         if (!user?.token) {
             toast.error("Please log in to proceed with the checkout!");
-            return;
+            return
         }
-        const productIds: number[] = cart.map((product) => product.id);
+        const productIds = cart.map((product) => Number(product.id)); // Convierte el ID a número
         await confirmUserOrder(productIds, user.token);
+                await confirmUserOrder(productIds, user.token);
 
         toast.success("Your order has been placed successfully!");
-        router.push("/orders");
+        router.push("/home");
     };
 
     const handleRemoveFromCart = (productId: string) => {
@@ -56,7 +58,7 @@ const Cart: React.FC = () => {
             {cart.map((product: IProducts) => (
                 <div key={product.id} className={styles["cart-item"]}>
                     <p className={styles["cart-item-name"]}>{product.name}</p>
-                    <img src={product.image} alt={product.name} />
+                    <Image src={product.image} alt={product.name} />
                     <button
                         className={styles["cart-item-button"]}
                         onClick={() => handleRemoveFromCart(product.id.toString())}

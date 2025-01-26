@@ -2,13 +2,14 @@ import { getProductById } from "../../../api/getProducts";
 import CardHome from "@/components/Card/CardHome";
 import AddToCart from "@/components/AddToCart";
 
-const Detail = async ({ params }: { params: { id: string } }) => {
+// Asegúrate de que params sea un Promise
+export default async function Detail({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;  // Resuelve el Promise
+
     try {
-        const product = await getProductById(params.id);
-
+        const product = await getProductById(id);  // Llamamos directamente a la API
         return (
-            <div >
-
+            <div>
                 <div>
                     <CardHome
                         key={product.id}
@@ -26,18 +27,15 @@ const Detail = async ({ params }: { params: { id: string } }) => {
                 <div className="flex justify-center mt-4">
                     <AddToCart product={product} />
                 </div>
-
             </div>
         );
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
+        console.log(error)
         return (
-            <div >
-                <p>Error</p>
+            
+            <div>
+                <p>Error: No se pudo obtener el producto</p>
             </div>
         );
-
     }
-};
-
-export default Detail;
+}

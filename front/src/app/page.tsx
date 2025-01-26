@@ -8,12 +8,12 @@ import logo from "@/components/NavBar/NextByte.png";
 
 const Landing: React.FC = () => {
     const products = [
-        { id: 1, name: "Mac", image: "products/store-card-13-mac-nav-202410.png" },
-        { id: 2, name: "iPhone", image: "products/store-card-13-iphone-nav-202409_GEO_US.png" },
-        { id: 3, name: "iPad", image: "products/store-card-13-ipad-nav-202405-removebg-preview.png" },
-        { id: 4, name: "Apple Watch", image: "products/store-card-13-watch-nav-202409-removebg-preview.png" },
-        { id: 5, name: "AirPods", image: "products/store-card-13-airpods-nav-202409-removebg-preview.png" },
-        { id: 6, name: "HomePod", image: "products/store-card-13-homepod-nav-202301.png" },
+        { id: 1, name: "Mac", image: "/products/store-card-13-mac-nav-202410.png" },
+        { id: 2, name: "iPhone", image: "/products/store-card-13-iphone-nav-202409_GEO_US.png" },
+        { id: 3, name: "iPad", image: "/products/store-card-13-ipad-nav-202405-removebg-preview.png" },
+        { id: 4, name: "Apple Watch", image: "/products/store-card-13-watch-nav-202409-removebg-preview.png" },
+        { id: 5, name: "AirPods", image: "/products/store-card-13-airpods-nav-202409-removebg-preview.png" },
+        { id: 6, name: "HomePod", image: "/products/store-card-13-homepod-nav-202301.png" },
     ];
 
     const transition = {

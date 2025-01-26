@@ -18,7 +18,7 @@ const Orders: React.FC = () => {
                 return;
             }
             try {
-                const ordersData = await fetchUserOrders(user.token);
+                const ordersData = await fetchUserOrders();
                 setOrders(ordersData);
                 setLoading(false);
             } catch (error) {

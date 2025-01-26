@@ -1,5 +1,4 @@
 "use client"
-import { IUserLogin } from "@/Interfaces/IUser";
 import { useContext, useState, useEffect } from "react";
 import { UserContext } from "@/context/userContext";
 import { useRouter } from "next/navigation";
@@ -10,9 +9,10 @@ const LoginForm = () => {
     const initialState = {
         email: "",
         password: "",
+        token: ""
     };
 
-    const [userData, setUserData] = useState<IUserLogin>(initialState);
+    const [userData, setUserData] = useState(initialState);
     const { loginUser } = useContext(UserContext);
     const router = useRouter();
     const [error, setError] = useState<string>("");

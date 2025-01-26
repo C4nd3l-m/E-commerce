@@ -87,10 +87,10 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setCart([]);
     };
 
-    const confirmUserOrder = async (order: number[], token: string) => {
+    const confirmUserOrder = async (order: number[]) => {
         
             try {
-                const result = await confirmOrder(order, token); 
+                const result = await confirmOrder(order); 
                 clearCart();
                 return result;
             } catch (error) {
