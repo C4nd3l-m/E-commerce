@@ -7,7 +7,7 @@ const Footer = () => {
             <p>&copy; 2024 NextByte. All rights reserved.</p>
             <div className={styles.socialIcons}>
                 <a
-                    href="https://www.linkedin.com/in/candela-villaverde-0a9027318/"
+                    href="https://www.linkedin.com/in/candela-villaverde%F0%9F%91%BE-0a9027318/"
                     target="_blank"
                     rel="noopener noreferrer"
                     title="LinkedIn"
