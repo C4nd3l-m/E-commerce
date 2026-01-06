@@ -2,6 +2,7 @@
 import React, { useContext } from "react";
 import { UserContext } from "@/context/userContext";
 import Link from "next/link";
+import Image from "next/image";
 import { IProducts } from "@/Interfaces/IProducts";
 import { useRouter } from "next/navigation";
 import { FaTrash, FaShoppingCart } from "react-icons/fa";
@@ -80,7 +81,13 @@ const Cart: React.FC = () => {
                         {cart.map((product: IProducts) => (
                             <div key={product.id} className="glass-card rounded-3xl p-6 flex flex-col sm:flex-row items-center gap-8 group transition-all duration-500 hover:shadow-2xl hover:shadow-brand-primary/5">
                                 <div className="w-32 h-32 bg-white/5 rounded-2xl flex items-center justify-center p-4 overflow-hidden shrink-0">
-                                    <img src={product.image} alt={product.name} className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110" />
+                                    <Image
+                                        src={product.image}
+                                        alt={product.name}
+                                        width={200}
+                                        height={200}
+                                        className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
+                                    />
                                 </div>
                                 <div className="flex-1 space-y-1 text-center sm:text-left">
                                     <h3 className="text-xl font-bold tracking-tight">{product.name}</h3>
