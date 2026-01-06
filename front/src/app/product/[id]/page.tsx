@@ -2,9 +2,10 @@ import { getProductById } from "../../../api/getProducts";
 import CardHome from "@/components/Card/CardHome";
 import AddToCart from "@/components/AddToCart";
 
-const Detail = async ({ params }: { params: { id: string } }) => {
+const Detail = async ({ params }: { params: Promise<{ id: string }> }) => {
+    const { id } = await params;
     try {
-        const product = await getProductById(params.id);
+        const product = await getProductById(id);
 
         return (
             <div >

@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useEffect, useRef } from "react";
+import Image from "next/image";
 
 interface CardLandingProps {
     imageSrc?: string;
@@ -39,13 +40,14 @@ const CardLanding: React.FC<CardLandingProps> = ({
             { threshold: 0.5 } // Adjust threshold for triggering play/pause
         );
 
-        if (videoRef.current) {
-            observer.observe(videoRef.current);
+        const currentVideo = videoRef.current;
+        if (currentVideo) {
+            observer.observe(currentVideo);
         }
 
         return () => {
-            if (videoRef.current) {
-                observer.unobserve(videoRef.current);
+            if (currentVideo) {
+                observer.unobserve(currentVideo);
             }
         };
     }, []);
@@ -63,9 +65,11 @@ const CardLanding: React.FC<CardLandingProps> = ({
                     className={`${imageWidth} ${imageHeight} object-cover`}
                 />
             ) : (
-                <img
-                    src={imageSrc}
+                <Image
+                    src={imageSrc || ""}
                     alt={altText}
+                    width={800} // Providing a base width for optimization
+                    height={800} // Providing a base height for optimization
                     className={`${imageWidth} ${imageHeight} object-contain`}
                 />
             )}
