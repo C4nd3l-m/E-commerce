@@ -3,9 +3,10 @@
 import { IUserLogin } from "@/Interfaces/IUser";
 import { useContext, useState } from "react";
 import { UserContext } from "@/context/userContext";
-import { useRouter } from "next/navigation"; 
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 import Cookies from "js-cookie";
-import toast from "react-hot-toast"; 
+import toast from "react-hot-toast";
 
 const LoginForm = () => {
     const initialState = {
@@ -39,7 +40,7 @@ const LoginForm = () => {
             return false;
         }
 
-        setError(""); 
+        setError("");
         return true;
     };
 
@@ -47,7 +48,7 @@ const LoginForm = () => {
         event.preventDefault();
 
         if (!validateForm()) {
-            toast.error(error); 
+            toast.error(error);
             return;
         }
 
@@ -57,62 +58,76 @@ const LoginForm = () => {
 
             Cookies.set("userData", JSON.stringify({ token, user }), { expires: 1 });
 
-            toast.success("Login successful!"); 
+            toast.success("Login successful!");
             router.push("/dashboard");
         } else {
-            toast.error("Login failed. Please try again."); 
+            toast.error("Login failed. Please try again.");
         }
     };
 
     return (
-        <div className="max-w-sm mx-auto p-6 border-2 border-black rounded-lg shadow-lg bg-black">
-            <h1 className="text-2xl font-semibold text-center text-white mb-4">Welcome!</h1>
-            <h2 className="text-xl text-center text-white mb-6">Sign in</h2>
+        <div className="max-w-md mx-auto w-full glass-card rounded-[2.5rem] p-10 space-y-8 animate-fade-in mt-12">
+            <div className="space-y-2 text-center">
+                <h1 className="text-4xl font-black tracking-tight">Welcome Back</h1>
+                <p className="text-gray-400 font-medium">Sign in to your NextByte account</p>
+            </div>
 
-            <form onSubmit={handleOnSubmit} className="space-y-4">
-                <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-white">
-                        Email:
+            <form onSubmit={handleOnSubmit} className="space-y-6">
+                <div className="space-y-2">
+                    <label htmlFor="email" className="block text-sm font-bold text-gray-300 ml-1">
+                        Email Address
                     </label>
                     <input
                         title="email"
-                        type="text"
+                        type="email"
                         id="email"
                         name="email"
+                        placeholder="name@example.com"
                         value={userData.email}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-2 border border-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#333]"
+                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-brand-primary/50 focus:border-brand-primary/50 transition-all"
                     />
                 </div>
 
-                <div>
-                    <label htmlFor="password" className="block text-sm font-medium text-white">
-                        Password:
+                <div className="space-y-2">
+                    <label htmlFor="password" className="block text-sm font-bold text-gray-300 ml-1">
+                        Password
                     </label>
                     <input
                         title="password"
                         type="password"
                         id="password"
                         name="password"
+                        placeholder="••••••••"
                         value={userData.password}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-2 border border-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#333]"
+                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-brand-primary/50 focus:border-brand-primary/50 transition-all"
                     />
                 </div>
 
                 {error && (
-                    <div className="text-red-600 text-sm mt-2">
-                        <p>{error}</p>
+                    <div className="bg-red-500/10 border border-red-500/20 text-red-400 text-sm p-4 rounded-xl flex items-center gap-3">
+                        <span className="shrink-0 block w-1.5 h-1.5 rounded-full bg-red-500" />
+                        {error}
                     </div>
                 )}
 
                 <button
                     type="submit"
-                    className="w-full bg-[#4c1d95] text-white py-2 px-4 rounded-md hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-[#4c1d95] "
+                    className="w-full pro-button py-4 text-lg font-bold shadow-2xl shadow-brand-primary/20"
                 >
-                    Sign in
+                    Sign In
                 </button>
             </form>
+
+            <div className="text-center">
+                <p className="text-sm text-gray-500">
+                    Don't have an account?{" "}
+                    <Link href="/register" className="text-brand-primary font-bold hover:underline underline-offset-4">
+                        Register now
+                    </Link>
+                </p>
+            </div>
         </div>
     );
 };

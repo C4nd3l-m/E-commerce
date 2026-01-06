@@ -12,9 +12,11 @@ app.use(morgan("dev"));
 app.use(router);
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-  res.status(err.statusCode || 500).send({
-    statusCode: err.statusCode || 500,
+  const statusCode = err.statusCode || 500;
+  res.status(statusCode).send({
+    statusCode,
     message: err.message || "Internal Server Error",
+    errors: err.errors || undefined, // Support for validation errors if any
   });
 });
 

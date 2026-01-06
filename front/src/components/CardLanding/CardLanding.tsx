@@ -51,7 +51,7 @@ const CardLanding: React.FC<CardLandingProps> = ({
     }, []);
 
     return (
-        <div className={`card-container ${customClass}`}>
+        <div className={`${customClass} overflow-hidden flex items-center justify-center`}>
             {isVideo && videoSrc ? (
                 <video
                     ref={videoRef}
@@ -60,13 +60,13 @@ const CardLanding: React.FC<CardLandingProps> = ({
                     loop
                     muted
                     playsInline
-                    className={`${imageWidth} ${imageHeight}`}
+                    className={`${imageWidth} ${imageHeight} object-cover`}
                 />
             ) : (
                 <img
                     src={imageSrc}
                     alt={altText}
-                    className={`${imageWidth} ${imageHeight}`}
+                    className={`${imageWidth} ${imageHeight} object-contain`}
                 />
             )}
         </div>

@@ -1,6 +1,9 @@
+import bcrypt from "bcrypt";
+import { Credential } from "../entities/Credential";
 import LoginUserDto from "../dtos/loginUser.dto";
 import RegisterUserDto from "../dtos/registerUser.dto";
 import { User } from "../entities/User";
+import { AppDataSource } from "../config/dataSource";
 import { UserRepository } from "../repositories/user.repository";
 import { ClientError } from "../utils/errors";
 import {
@@ -18,14 +21,22 @@ export const checkUserExists = async (email: string): Promise<boolean> => {
 export const registerUserService = async (
   registerUserDto: RegisterUserDto
 ): Promise<User> => {
-  const user = await UserRepository.create(registerUserDto);
-  await UserRepository.save(user);
-  const credential = await createCredentialService({
-    password: registerUserDto.password,
+  return await AppDataSource.manager.transaction(async (entityManager) => {
+    const userRepository = entityManager.getRepository(User);
+    const credentialRepository = entityManager.getRepository(Credential);
+
+    const user = userRepository.create(registerUserDto);
+    await userRepository.save(user);
+
+    const hashedPassword = await bcrypt.hash(registerUserDto.password, 10);
+    const credential = credentialRepository.create({ password: hashedPassword });
+    await credentialRepository.save(credential);
+
+    user.credential = credential;
+    await userRepository.save(user);
+
+    return user;
   });
-  user.credential = credential;
-  await UserRepository.save(user);
-  return user;
 };
 
 export const loginUserService = async (

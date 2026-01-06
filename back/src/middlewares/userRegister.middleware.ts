@@ -8,9 +8,17 @@ const validateUserRegister = (
   next: NextFunction
 ) => {
   const { email, password, name, address, phone } = req.body;
-  if (!email || !password || !name || !address || !phone)
-    next(new ClientError("Missing fields"));
-  else next();
+  if (!email || !password || !name || !address || !phone) {
+    return next(new ClientError("Missing fields"));
+  }
+
+  // Basic email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return next(new ClientError("Invalid email format"));
+  }
+
+  next();
 };
 
 const validateUserExists = async (

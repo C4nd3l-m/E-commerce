@@ -14,66 +14,76 @@ const NavBar = () => {
     };
 
     return (
-        <nav className="bg-grey text-white flex items-center justify-between px-6 py-4 shadow-md">
-            <div className="flex items-center">
-                <Image
-                    title="logo"
-                    src={logo}
-                    alt="NextByte Logo"
-                    className="mr-4 rounded-md"
-                    width={70}
-                    height={70}
-                />
-                <Link href="/home" className="text-xl font-bold hover:text-gray-400">
-                    Home
-                </Link>
-            </div>
-            <div className="flex items-center space-x-4">
-                {user ? (
-                    <>
-                        <Link
-                            href="/dashboard"
-                            className="text-sm font-medium hover:text-gray-400"
-                        >
-                            My Account
-                        </Link>
-                        <Link
-                            href="/cart"
-                            className="text-sm font-medium hover:text-gray-400"
-                        >
-                            My Cart
-                        </Link>
+        <nav className="sticky top-0 z-50 w-full glass-card border-none bg-background/60 backdrop-blur-xl">
+            <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+                <div className="flex items-center space-x-8">
+                    <Link href="/" className="flex items-center group transition-transform hover:scale-105">
+                        <Image
+                            title="logo"
+                            src={logo}
+                            alt="NextByte Logo"
+                            className="mr-3 rounded-lg shadow-lg"
+                            width={50}
+                            height={50}
+                        />
+                        <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-brand-primary to-brand-secondary">
+                            NextByte
+                        </span>
+                    </Link>
+                    <Link href="/home" className="text-sm font-medium text-gray-400 hover:text-white transition-colors pt-1">
+                        Store
+                    </Link>
+                </div>
 
-                        <Link
-                            href="/orders"
-                            className="text-sm font-medium hover:text-gray-400"
-                        >
-                            My Orders
-                        </Link>
-                        <button
-                            type="button"
-                            onClick={handleLogout}
-                            className="text-sm font-medium bg-#ffffff00 px-3 py-1 rounded hover:bg-red-500"
-                        >
-                            Logout
-                        </button>
-                    </>
-                ) : (
-                    <>
-                        <Link
-                            href="/login"
-                            className="text-sm font-medium hover:text-gray-400"
-                        >
-                            Login
-                        </Link>
-                        <Link
-                            href="/register"
-                            className="text-sm font-medium hover:text-gray-400"
-                        >
-                            Register
-                        </Link>
-                    </>
-                )}
+                <div className="flex items-center space-x-6">
+                    {user ? (
+                        <>
+                            <div className="hidden md:flex items-center space-x-6">
+                                <Link
+                                    href="/dashboard"
+                                    className="text-sm font-medium text-gray-400 hover:text-white transition-colors"
+                                >
+                                    My Account
+                                </Link>
+                                <Link
+                                    href="/cart"
+                                    className="text-sm font-medium text-gray-400 hover:text-white transition-colors"
+                                >
+                                    My Cart
+                                </Link>
+
+                                <Link
+                                    href="/orders"
+                                    className="text-sm font-medium text-gray-400 hover:text-white transition-colors"
+                                >
+                                    My Orders
+                                </Link>
+                            </div>
+                            <button
+                                type="button"
+                                onClick={handleLogout}
+                                className="text-sm font-bold bg-red-500/10 text-red-400 px-4 py-2 rounded-full border border-red-500/20 hover:bg-red-500 hover:text-white transition-all active:scale-95"
+                            >
+                                Logout
+                            </button>
+                        </>
+                    ) : (
+                        <div className="flex items-center space-x-4">
+                            <Link
+                                href="/login"
+                                className="text-sm font-medium text-gray-400 hover:text-white transition-colors"
+                            >
+                                Login
+                            </Link>
+                            <Link
+                                href="/register"
+                                className="pro-button text-sm"
+                            >
+                                Register
+                            </Link>
+                        </div>
+                    )}
+                </div>
             </div>
         </nav>
     );

@@ -1,3 +1,7 @@
+import { In } from "typeorm";
+import { AppDataSource } from "../config/dataSource";
+import { Product } from "../entities/Product";
+import { User } from "../entities/User";
 import { CreateOrderDto } from "../dtos/createOrderDto";
 import { Order } from "../entities/Order";
 import { OrderRepository } from "../repositories/order.repository";
@@ -7,24 +11,29 @@ import { UserRepository } from "../repositories/user.repository";
 export const createOrderService = async (
   createOrderDto: CreateOrderDto
 ): Promise<Order> => {
-  const productsF = [];
+  return await AppDataSource.manager.transaction(async (entityManager: any) => {
+    const orderRepository = entityManager.getRepository(Order);
+    const userRepository = entityManager.getRepository(User);
+    const productRepository = entityManager.getRepository(Product);
 
-  for await (const id of createOrderDto.products) {
-    const product = await ProductRepository.findOneBy({ id });
-    if (!product) throw new Error("Product not found");
-    productsF.push(product);
-  }
+    const user = await userRepository.findOneBy({ id: createOrderDto.userId });
+    if (!user) throw new Error("User not found");
 
-  const userF = await UserRepository.findOneBy({ id: createOrderDto.userId });
-  if (!userF) throw new Error("User not found");
+    const products = await productRepository.findBy({
+      id: In(createOrderDto.products)
+    });
 
-  const newOrder = OrderRepository.create();
+    if (products.length !== createOrderDto.products.length) {
+      throw new Error("One or more products not found");
+    }
 
-  newOrder.status = "approved";
-  newOrder.date = new Date();
-  newOrder.user = userF;
-  newOrder.products = productsF;
+    const newOrder = orderRepository.create();
+    newOrder.status = "approved";
+    newOrder.date = new Date();
+    newOrder.user = user;
+    newOrder.products = products;
 
-  await OrderRepository.save(newOrder);
-  return newOrder;
+    await orderRepository.save(newOrder);
+    return newOrder;
+  });
 };
