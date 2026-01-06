@@ -1,7 +1,5 @@
 import Link from "next/link";
 import CardLanding from "@/components/CardLanding/CardLanding";
-import logo from "@/components/NavBar/NextByte.png"
-import Image from "next/image";
 const Landing: React.FC = () => {
     const categories = [
         { id: 1, name: "Mac", image: "products/store-card-13-mac-nav-202410.png", desc: "Mind-blowing power. Built for work and play." },
@@ -63,7 +61,7 @@ const Landing: React.FC = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {categories.map((cat, idx) => (
+                    {categories.map((cat) => (
                         <Link
                             key={cat.id}
                             href="/home"

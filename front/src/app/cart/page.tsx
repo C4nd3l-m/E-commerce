@@ -44,7 +44,7 @@ const Cart: React.FC = () => {
                     </div>
                     <div className="space-y-2">
                         <h1 className="text-3xl font-black uppercase tracking-tight">Your cart is empty</h1>
-                        <p className="text-gray-400 font-medium">Looks like you haven't added any premium tech to your collection yet.</p>
+                        <p className="text-gray-400 font-medium">Looks like you haven&apos;t added any premium tech to your collection yet.</p>
                     </div>
                     <Link href="/home" className="block">
                         <button className="pro-button w-full py-4 text-lg font-bold shadow-xl shadow-brand-primary/20">
